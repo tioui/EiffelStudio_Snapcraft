@@ -1,0 +1,5 @@
+*.snap
+*.tar*
+parts
+stage
+prime
