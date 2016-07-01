@@ -24,5 +24,4 @@ To Build the package
 		# eiffelstudio.eimgemb
 		# eiffelstudio.iron
 		# eiffelstudio.syntax-updater
-	- Note: The compilation does not work for now because the GCC compiler in the
-Snap system does not have the good Include Path.
+	- Note: The compilation does not work for now because the GCC compiler in the snap system does not have the good Include Path.
