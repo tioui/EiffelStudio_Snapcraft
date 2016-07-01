@@ -1,0 +1,85 @@
+name: eiffelstudio
+version: "16.05"
+summary: IDE for the Eiffel Language by EiffelSoftware.
+description: IDE for the Eiffel Language by EiffelSoftware.
+confinement: devmode
+
+apps:
+  estudio:
+    command: eiffel-launch desktop-launch estudio
+    plugs:
+      - x11
+      - home
+      - network
+      - gsettings
+      - unity7
+  ec:
+    command: eiffel-launch desktop-launch ec
+    plugs:
+      - x11
+      - home
+      - network
+      - gsettings
+      - unity7
+  ecb:
+    command: eiffel-launch ecb
+    plugs:
+      - home
+  esbuilder:
+    command: eiffel-launch desktop-launch esbuilder
+    plugs:
+      - x11
+      - home
+      - gsettings
+      - unity7
+  finish-freezing:
+    command: eiffel-launch finish_freezing
+    plugs:
+      - home
+  quick-finalize:
+    command: eiffel-launch quick_finalize
+    plugs:
+      - home
+  ace2ecf:
+    command: eiffel-launch ace2ecf
+    plugs:
+      - home
+  compile-all:
+    command: eiffel-launch compile_all
+    plugs:
+      - home
+  eiffel-echo:
+    command: eiffel-launch eiffel_echo
+  eimgemb:
+    command: eiffel-launch desktop-launch eimgemb
+    plugs:
+      - x11
+      - home
+  iron:
+    command: eiffel-launch iron
+    plugs:
+      - home
+  syntax-updater:
+    command: eiffel-launch syntax_updater
+    plugs:
+      - home
+
+parts:
+  eiffelstudio:
+    plugin: copy
+    source: Eiffel_16.05_gpl_98814-linux-x86-64.tar.bz2
+    files:
+      ../build: lib/Eiffel
+    after: [desktop/gtk2]
+    build-packages:
+      - build-essential
+      - libgtk2.0-dev
+      - libxtst-dev
+    stage-packages:
+      - build-essential
+      - libgtk2.0-dev
+      - libxtst-dev
+  eiffel-launcher:
+    source: Makefiles
+    plugin: make
+    makefile: Makefile.launcher

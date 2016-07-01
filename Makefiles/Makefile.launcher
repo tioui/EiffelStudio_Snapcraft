@@ -1,0 +1,24 @@
+#!/usr/bin/make -f
+
+ifeq ($(wildcard eiffel_platform),) 
+	ISE_PLATFORM = linux-x86-64
+else 
+	ISE_PLATFORM = $(shell cat eiffel_platform)
+endif
+
+DEST_LAUNCHER = eiffel-launch
+
+all: $(DEST_LAUNCHER)
+
+clean:
+		rm -f $(DEST_LAUNCHER)
+
+$(DEST_LAUNCHER):
+	@echo "#!/bin/bash" > $(DEST_LAUNCHER)
+	@echo 'export ISE_EIFFEL=$$SNAP/lib/Eiffel' >> $(DEST_LAUNCHER)
+	@echo 'export ISE_PLATFORM=${ISE_PLATFORM}' >> $(DEST_LAUNCHER)
+	@echo 'export PATH=$$PATH:$$ISE_EIFFEL/studio/spec/$$ISE_PLATFORM/bin:$$ISE_EIFFEL/tools/spec/$$ISE_PLATFORM/bin:$$ISE_EIFFEL/esbuilder/spec/$$ISE_PLATFORM/bin' >> $(DEST_LAUNCHER)
+	@echo 'exec "$$@"' >> $(DEST_LAUNCHER)
+						
+install: $(DEST_LAUNCHER)
+	install -D -m755 $(DEST_LAUNCHER) $(DESTDIR)/bin/$(DEST_LAUNCHER)
