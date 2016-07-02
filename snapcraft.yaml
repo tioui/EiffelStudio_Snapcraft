@@ -70,11 +70,9 @@ parts:
     source: http://downloads.sourceforge.net/project/eiffelstudio/EiffelStudio%2016.05/Build_98814/Eiffel_16.05_gpl_98814-linux-x86-64.tar.bz2
     files:
       ../build: lib/Eiffel
-    after: [desktop/gtk2]
-    build-packages:
-      - build-essential
-      - libgtk2.0-dev
-      - libxtst-dev
+    after: 
+      - desktop/gtk2
+      - eiffel-launcher
     stage-packages:
       - build-essential
       - libgtk2.0-dev

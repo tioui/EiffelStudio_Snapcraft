@@ -6,6 +6,12 @@ else
 	ISE_PLATFORM = $(shell cat eiffel_platform)
 endif
 
+ifeq (${ISE_PLATFORM}, linux-x86-64)
+	GCC_ARCH = x86_64-linux-gnu
+else
+	GCC_ARCH = i686-linux-gnu
+endif
+
 DEST_LAUNCHER = eiffel-launch
 
 all: $(DEST_LAUNCHER)
@@ -18,6 +24,7 @@ $(DEST_LAUNCHER):
 	@echo 'export ISE_EIFFEL=$$SNAP/lib/Eiffel' >> $(DEST_LAUNCHER)
 	@echo 'export ISE_PLATFORM=${ISE_PLATFORM}' >> $(DEST_LAUNCHER)
 	@echo 'export PATH=$$PATH:$$ISE_EIFFEL/studio/spec/$$ISE_PLATFORM/bin:$$ISE_EIFFEL/tools/spec/$$ISE_PLATFORM/bin:$$ISE_EIFFEL/esbuilder/spec/$$ISE_PLATFORM/bin' >> $(DEST_LAUNCHER)
+	@echo 'export CFLAGS="$$CFLAGS -I$$SNAP/usr/include -I$$SNAP/usr/include/${GCC_ARCH}"' >> $(DEST_LAUNCHER)
 	@echo 'exec "$$@"' >> $(DEST_LAUNCHER)
 						
 install: $(DEST_LAUNCHER)
